@@ -9,10 +9,12 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const options = {
-  host: 'www.google.com',
-  port: 80,
-  path: '/index.html',
+  host: 'https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html',
   response: null
+};
+
+const htmlParserOptions = {
+  plainText: false
 };
 
 const webpage = {
@@ -31,7 +33,7 @@ const webpage = {
     for (var i = 0; i < contentArr.length; i++) {
       acc += contentArr[i]
       .replaceAll("$url", request.url)
-      .replaceAll("$google", options.response);
+      .replaceAll("$google", deepHTMLParser(options.response));
       //.replaceAll("$reqAll", Object.getOwnPropertyNames(request).join(", "))
       //.replaceAll("$reqVal", deepSafeObjectReader(request, 0))
 
@@ -68,9 +70,10 @@ var request = require("request");
 var parseMyAwesomeHtml = function(html) {
     console.log("SUCCESS!");
     console.log(html);
+    options.response = html;
 };
 
-request("http://www.google.com/", function (error, response, body) {
+request("https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html", function (error, response, body) {
     if (!error) {
         parseMyAwesomeHtml(body);
     } else {
@@ -114,3 +117,11 @@ function deepSafeObjectReader(obj, runs) {
         str += "}";
         return str;
       }
+
+function deepHTMLParser(options, text) {
+  if (options.plainText) {
+    return text.replaceAll("<", "&lt;");
+  }
+
+  return text;
+}
