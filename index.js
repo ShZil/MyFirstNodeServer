@@ -8,22 +8,32 @@ const http = require('http');
 const hostname = '127.0.0.1';
 const port = 3000;
 
+const options = {
+  host: 'www.google.com',
+  port: 80,
+  path: '/index.html',
+  response: null
+};
+
 const webpage = {
   PREContent: [
     "Hi Dude!",
     "You used this url ending:",
-    "$url"
+    "$url",
+    "Hello World!",
+    "This is "+options.host,
+    "$google"
   ],
   lineSeperator: '<br>',
+  continuation: "...",
   parseContent: (contentArr, request) => {
     let acc = "<div style=\"background-color: black; font-family: Consolas, sans-serif; color: white;\">";
     for (var i = 0; i < contentArr.length; i++) {
       acc += contentArr[i]
       .replaceAll("$url", request.url)
-      .replaceAll("$reqAll",
-      Object.getOwnPropertyNames(request)
-      .join(", "))
-      .replaceAll("$reqVal", deepSafeObjectReader(request, 0));
+      .replaceAll("$google", options.response);
+      //.replaceAll("$reqAll", Object.getOwnPropertyNames(request).join(", "))
+      //.replaceAll("$reqVal", deepSafeObjectReader(request, 0))
 
       acc += webpage.lineSeperator;
     }
@@ -53,45 +63,54 @@ server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
 
+var request = require("request");
+
+var parseMyAwesomeHtml = function(html) {
+    console.log("SUCCESS!");
+    console.log(html);
+};
+
+request("http://www.google.com/", function (error, response, body) {
+    if (!error) {
+        parseMyAwesomeHtml(body);
+    } else {
+        console.log(error);
+    }
+});
 
 
-function colorString(str, clr) {
-  if (clr == undefined) {
-    return str;
-  }
-  return `<b style=\"color: ${clr};\">${str}</b>`;
-}
+const colorString = (str, clr) => clr ? `<b style=\"color: ${clr};\">${str}</b>` : str;
 
 function deepSafeObjectReader(obj, runs) {
-  console.log(typeof obj + " " + runs);
-  var color = webpage.typeofColors[typeof obj];
-  if (obj === undefined) {
-    return colorString("undefined", color);
-  }
-  if (obj === null) {
-    return colorString("null", webpage.typeofColors[obj]);
-  }
-  if ((typeof obj) === "string") {
-    return colorString(`\"${obj}\"`, color);
-  }
-  if ((typeof obj) === "number") {
-    return colorString(`${obj}`, color);
-  }
-  if ((typeof obj) === "function") {
-    return colorString(`function ${obj.name}(${obj.length == 0 ? "" : obj.length})`, color);
-  }
-  if ((typeof obj) === "boolean") {
-    return colorString(`${obj.toString()}`, color);
-  }
-  if (runs >= webpage.maxRuns) {
-    return "<i>...</i>";
-  }
-  var str = "{<br>";
-  for (const [key, value] of Object.entries(obj)) {
-    str +=
-    `<b style=\"margin-left: ${webpage.propertyIndent * runs}px;\">` +
-    `${key}: ${deepSafeObjectReader(value, runs+1)}</b>,<br>`;
-  }
-  str += "}";
-  return str;
-}
+        console.log(typeof obj + " " + runs);
+        var color = webpage.typeofColors[typeof obj];
+        if (obj === undefined) {
+          return colorString("undefined", color);
+        }
+        if (obj === null) {
+          return colorString("null", webpage.typeofColors[obj]);
+        }
+        if ((typeof obj) === "string") {
+          return colorString(`\"${obj}\"`, color);
+        }
+        if ((typeof obj) === "number") {
+          return colorString(`${obj}`, color);
+        }
+        if ((typeof obj) === "function") {
+          return colorString(`function ${obj.name}(${obj.length == 0 ? "" : obj.length})`, color);
+        }
+        if ((typeof obj) === "boolean") {
+          return colorString(`${obj.toString()}`, color);
+        }
+        if (runs >= webpage.maxRuns) {
+          return "<i>...</i>";
+        }
+        var str = "{<br>";
+        for (const [key, value] of Object.entries(obj)) {
+          str +=
+          `<b style=\"margin-left: ${webpage.propertyIndent * runs}px;\">` +
+          `${key}: ${deepSafeObjectReader(value, runs+1)}</b>,<br>`;
+        }
+        str += "}";
+        return str;
+      }
