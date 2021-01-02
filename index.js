@@ -2,6 +2,8 @@
 // https://www.w3schools.com/nodejs/nodejs_url.asp
 
 const http = require('http');
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 
 // http://localhost:3000
 
@@ -14,7 +16,8 @@ const options = {
 };
 
 const htmlParserOptions = {
-  plainText: false
+  plainText: false,
+  disableScripts: true
 };
 
 const webpage = {
@@ -121,6 +124,11 @@ function deepSafeObjectReader(obj, runs) {
 function deepHTMLParser(options, text) {
   if (options.plainText) {
     return text.replaceAll("<", "&lt;");
+  }
+  const dom = new JSDOM(text);
+  const { document } = dom.window;
+  if (options.disableScripts) {
+    document.querySelector("p")
   }
 
   return text;
