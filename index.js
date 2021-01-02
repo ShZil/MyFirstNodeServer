@@ -11,7 +11,7 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const options = {
-  host: 'https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html',
+  host: 'http://docs.oracle.com/javase/7/docs/api/java/awt/Color.html',
   response: null
 };
 
@@ -76,7 +76,7 @@ var parseMyAwesomeHtml = function(html) {
     options.response = html;
 };
 
-request("https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html", function (error, response, body) {
+request(options.host, function (error, response, body) {
     if (!error) {
         parseMyAwesomeHtml(body);
     } else {
@@ -128,8 +128,11 @@ function deepHTMLParser(options, text) {
   const dom = new JSDOM(text);
   const { document } = dom.window;
   if (options.disableScripts) {
-    document.querySelector("p")
+    document.querySelectorAll("script").forEach(element => {
+      element.innerHTML = "";
+      element.src = "";
+    });
   }
 
-  return text;
+  return document.documentElement.outerHTML;
 }
