@@ -1,0 +1,165 @@
+body {
+  background: #222;
+}
+
+.topNav>.navList, .subNav, .bottomNav {
+  display: none;
+}
+
+.header {
+  text-decoration: underline;
+  text-align: center;
+}
+
+code {
+  border-radius: 1px;
+  color: white;
+  font-size: 13px;
+  font-family: Menlo, Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, sans-serif;
+  line-height: 1.30769231;
+  color: #fff;
+  background-color: #414141;
+  border-radius: 1px;
+  margin: 0;
+  padding: 1px;
+  overflow: auto;
+}
+
+div {
+  color: white;
+  font-family: Arial;
+}
+
+pre {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-left: 4px solid #067e00;
+    color: #444242;
+    page-break-inside: avoid;
+    font-family: monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 1.6em;
+    max-width: 100%;
+    overflow: auto;
+    padding: 1em 1.5em;
+    display: block;
+    word-wrap: break-word;
+    border-radius: 6px;
+}
+
+.strong {
+  font-weight: bold;
+}
+
+a {
+  color: #999;
+  text-decoration: none;
+}
+
+ul.inheritance {
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-left: 4px solid #c30000;
+  color: #444242;
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 0;
+  max-width: 100%;
+  overflow: auto;
+  padding: 1em 1.5em;
+  display: block;
+  word-wrap: break-word;
+  border-radius: 6px;
+  list-style-type: none;
+}
+
+.inheritance>li>a {
+  color: #444242;
+}
+
+ul.blocklist {
+  list-style-type: none;
+}
+
+.overviewSummary {
+  background: #585858;
+  border-left: 4px solid #0008c3;
+  color: #444242;
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 0;
+  max-width: 100%;
+  overflow: auto;
+  padding: 1em 1.5em;
+  display: block;
+  word-wrap: break-word;
+  border-radius: 6px;
+  list-style-type: none;
+}
+
+.colOne {
+  border-radius: 10px;
+  padding-bottom: 30px;
+}
+
+th.colFirst, th.colLast {
+  color: #eee;
+}
+
+.colLast>code {
+  background: #585858;
+  border: 1px solid #656565;
+  border-left: 4px solid #0071c3;
+  color: white;
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 0;
+  max-width: 100%;
+  overflow: auto;
+  padding: 3px;
+  display: block;
+  word-wrap: break-word;
+  border-radius: 6px;
+  list-style-type: none;
+}
+
+.blockList>pre>a, .colFirst>code>a {
+  color: #edce00;
+}
+
+.colFirst>code {
+  color: #db00cc;
+}
+
+li>h4 {
+  text-decoration: underline;
+  margin-bottom: 2px;
+}
+
+li>h3 {
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+}
+
+.summary>ul>li {
+  display: grid;
+  grid-column-gap: 5px;
+  grid-template-columns: auto auto auto;
+  background: #2f2f2f;
+  border-radius: 6px;
+}
+
+.description>ul.blocklist>li.blocklist>pre {
+  color: #db00cc;
+}
+
+li.blocklist>pre>span {
+  color: black;
+}
