@@ -13,7 +13,7 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const options = {
-  host: 'http://docs.oracle.com/javase/7/docs/api/java/awt/Color.html',
+  host: 'https://docs.oracle.com/javase/7/docs/api/java/awt/Color.html',
   response: null
 };
 
