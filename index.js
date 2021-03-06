@@ -3,9 +3,8 @@
 
 const http = require('http');
 const fs = require('fs');
-const jsdom = require("jsdom");
 const url = require("url");
-const { JSDOM } = jsdom;
+const request = require("request");
 
 // http://localhost:3000
 
@@ -13,7 +12,7 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const options = {
-  host: 'https://docs.oracle.com/javase/7/docs/api/java/awt/Color.html',
+  host: 'https://docs.oracle.com/javase/7/docs/api/java/lang/package-summary.html',
   response: null
 };
 
@@ -59,8 +58,7 @@ const webpage = {
   }
 };
 
-const server = http.createServer(function(req, res){
-  // your normal server code
+const server = http.createServer(function(req, res) {
   var path = url.parse(req.url).pathname;
   switch (path){
     case '/':
@@ -87,16 +85,18 @@ const server = http.createServer(function(req, res){
       break;
     }
 
-    // send404(res);
+    send404(res);
     break;
   }
 });
 
+function send404(res) {
+    console.log("Status 404!");
+}
+
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
   });
-
-  var request = require("request");
 
   var parseMyAwesomeHtml = function(html) {
     console.log("SUCCESS!");
